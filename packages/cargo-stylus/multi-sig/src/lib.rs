@@ -3,6 +3,7 @@
 extern crate alloc;
 
 /// Import items from the SDK. The prelude contains common traits and macros.
+use stylus_cache_sdk::{is_contract_cacheable};
 use stylus_sdk::{contract, evm, msg, prelude::*, call::{Call, call}, alloy_primitives::{Address, U256}, abi::Bytes};
 use alloy_sol_types::sol;
 
@@ -82,6 +83,10 @@ impl MultiSig {
         Ok(self.num_confirmations_required.get())
     }
 
+    pub fn is_cacheable(&self) -> bool {
+        is_contract_cacheable()
+    }
+    
     // The `deposit` method is payable, so it can receive funds.
     #[payable]
     pub fn deposit(&mut self) {
